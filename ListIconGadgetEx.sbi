@@ -1,0 +1,80 @@
+﻿DeclareModule ListIconGadgetEx
+  
+  EnableExplicit
+  
+  Declare SetRowHeight(Gadget, RowHeight)
+  Declare BindCellClick(Gadget, Callback)
+  Declare SetEvenRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Declare SetOddRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  
+EndDeclareModule
+
+Module ListIconGadgetEx
+  
+  EnableExplicit
+  
+  Macro GetGadgetID(Gadget)
+    If IsGadget(Gadget) = 0 : ProcedureReturn : EndIf
+    If GadgetType(Gadget) <> #PB_GadgetType_ListIcon : ProcedureReturn : EndIf
+    Protected GadgetID = GadgetID(Gadget)
+  EndMacro
+  
+  Procedure SetRowHeight(Gadget, RowHeight)
+    
+    GetGadgetID(Gadget)
+    
+    ! var grid = v_gadgetid.gadget;
+    ! spider.DojoAspect.after( grid, 'renderRow', function( row, args ) {
+    !		var div = $(row).find("td.dgrid-cell").find("div").find("div");
+    ! 	div.css('height', v_rowheight + 'px');
+    ! 	div.css('line-height', v_rowheight + 'px');
+    ! 	return row;
+    ! });	
+    
+  EndProcedure
+  
+  Procedure BindCellClick(Gadget, Callback)
+    
+    GetGadgetID(Gadget)
+    
+    ! var grid = v_gadgetid.gadget;
+    
+    ! grid.on('.dgrid-header .dgrid-cell:click', function (e) {
+    ! 	v_callback(v_gadget, grid.cell(e).column.index, -1);
+    ! });
+    
+    ! grid.on('.dgrid-row .dgrid-cell:click', function (e) {
+    ! 	v_callback(v_gadget, grid.cell(e).column.index, grid.cell(e).row.id);
+    ! });
+    
+  EndProcedure
+  
+  Procedure SetEvenRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+    
+    Protected Style.s
+    
+    Style = "<style type='text/css' id='EvenRowColorStyle'>" + 
+            ".dgrid-row-even.dgrid-selected { background: " + SelectedRowColor + "; color: " + SelectedTextColor + "; } " + 
+            ".dgrid-row-even { background: " + RowColor + "; color: " + TextColor + "; }" + 
+            "</style>"
+    
+    ! $('#EvenRowColorStyle').remove();
+    ! $(v_style).appendTo("head");
+    
+  EndProcedure
+  
+  Procedure SetOddRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+    
+    Protected Style.s
+    
+    Style = "<style type='text/css' id='OddRowColorStyle'>" + 
+            ".dgrid-row-odd.dgrid-selected { background: " + SelectedRowColor + "; color: " + SelectedTextColor + "; } " + 
+            ".dgrid-row-odd { background: " + RowColor + "; color: " + TextColor + "; }" + 
+            "</style>"
+    
+    ! $('#OddRowColorStyle').remove();
+    ! $(v_style).appendTo("head");
+    
+  EndProcedure
+  
+EndModule
