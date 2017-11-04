@@ -24,6 +24,7 @@ Module ListIconGadgetEx
     GetGadgetID(Gadget)
     
     ! var grid = v_gadgetid.gadget;
+    
     ! spider.DojoAspect.after( grid, 'renderRow', function( row, args ) {
     !		var div = $(row).find("td.dgrid-cell").find("div").find("div");
     ! 	div.css('height', v_rowheight + 'px');

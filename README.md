@@ -1,5 +1,5 @@
-# jQuery
-SpiderBasic-Module to for additionally ListIconGadget-Functionalities
+# ListIconGadgetEx
+A SpiderBasic-Module for additionally ListIconGadget-Functionalities
 
 # Example:
 
