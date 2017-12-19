@@ -29,20 +29,26 @@ Procedure CellClick(ListIconGadget, Column, Row)
 EndProcedure
 
 OpenWindow(#Window, #PB_Ignore, #PB_Ignore, 800, 800, "ListIcon Example", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)
-ListIconGadget(#ListIconGadget, 0, 0, 800, 800, "Name", 300, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
-AddGadgetColumn(#ListIconGadget, 1, "Address", 400)
+ListIconGadget(#ListIconGadget, 0, 0, 800, 800, "Column 0", 300, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
 
-ListIconGadgetEx::SetOddRowColor ("lightgreen", "darkgreen", "black", "white")
-ListIconGadgetEx::SetEvenRowColor("white", "lightblue", "black", "black")
+AddGadgetColumn(#ListIconGadget, 1, "Column 1", 400)
+
+; ListIconGadgetEx::SetOddRowColor ("lightgreen", "darkgreen", "black", "white")
+; ListIconGadgetEx::SetEvenRowColor("white", "lightblue", "black", "black")
 
 ListIconGadgetEx::SetRowHeight(#ListIconGadget, 36)
 ListIconGadgetEx::BindCellClick(#ListIconGadget, @CellClick())
 
+ListIconGadgetEx::SetColumnHeaderAlignment(#ListIconGadget, 0, "center")
+ListIconGadgetEx::SetColumnAlignment(#ListIconGadget, 0, "right")
+
+ListIconGadgetEx::SetColumnHeaderAlignment(#ListIconGadget, 1, "right")
+ListIconGadgetEx::SetColumnAlignment(#ListIconGadget, 1, "center")
 
 Define Counter
 
 For Counter = 0 To 9
-  AddGadgetItem(#ListIconGadget, -1, "Name" + Counter + #LF$ + "Address" + Counter)
+  AddGadgetItem(#ListIconGadget, -1, "Column 0 / Row " + Counter + #LF$ + "Column 1 / Row " + Counter)
 Next
 ```
 

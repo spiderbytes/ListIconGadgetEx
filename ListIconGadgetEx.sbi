@@ -7,6 +7,9 @@
   Declare SetEvenRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
   Declare SetOddRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
   
+  Declare SetColumnHeaderAlignment(Gadget, Column, Alignment.s)
+  Declare SetColumnAlignment(Gadget, Column, Alignment.s)
+  
 EndDeclareModule
 
 Module ListIconGadgetEx
@@ -19,11 +22,14 @@ Module ListIconGadgetEx
     Protected GadgetID = GadgetID(Gadget)
   EndMacro
   
+  Macro GetGrid
+    GetGadgetID(Gadget)
+    ! var grid = v_gadgetid.gadget;
+  EndMacro
+  
   Procedure SetRowHeight(Gadget, RowHeight)
     
-    GetGadgetID(Gadget)
-    
-    ! var grid = v_gadgetid.gadget;
+    GetGrid
     
     ! spider.DojoAspect.after( grid, 'renderRow', function( row, args ) {
     !		var div = $(row).find("td.dgrid-cell").find("div").find("div");
@@ -36,9 +42,7 @@ Module ListIconGadgetEx
   
   Procedure BindCellClick(Gadget, Callback)
     
-    GetGadgetID(Gadget)
-    
-    ! var grid = v_gadgetid.gadget;
+    GetGrid
     
     ! grid.on('.dgrid-header .dgrid-cell:click', function (e) {
     ! 	v_callback(v_gadget, grid.cell(e).column.index, -1);
@@ -76,6 +80,20 @@ Module ListIconGadgetEx
     ! $('#OddRowColorStyle').remove();
     ! $(v_style).appendTo("head");
     
+  EndProcedure
+  
+  Procedure SetColumnHeaderAlignment(Gadget, Column, Alignment.s)
+    GetGrid
+    ! var id = "ligcha_" + grid.id + "_" + v_column;
+    ! $("#" + id).remove();
+    ! $("<style id='" + id + "'>" + "#" + grid.id + " .dgrid-column-" + v_column + "[role='columnheader'] { text-align: " + v_alignment + ";}</style>").appendTo("head");
+  EndProcedure
+  
+  Procedure SetColumnAlignment(Gadget, Column, Alignment.s)
+    GetGrid
+    ! var id = "ligca_" + grid.id + "_" + v_column;
+    ! $("#" + id).remove();
+    ! $("<style id='" + id + "'>" + "#" + grid.id + " .dgrid-column-" + v_column + "[role='gridcell'] { text-align: " + v_alignment + ";}</style>").appendTo("head");
   EndProcedure
   
 EndModule
