@@ -4,8 +4,9 @@
   
   Declare SetRowHeight(Gadget, RowHeight)
   Declare BindCellClick(Gadget, Callback)
-  Declare SetEvenRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
-  Declare SetOddRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  
+  Declare SetEvenRowColor(Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Declare SetOddRowColor (Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
   
   Declare SetColumnHeaderAlignment(Gadget, Column, Alignment.s)
   Declare SetColumnAlignment(Gadget, Column, Alignment.s)
@@ -54,31 +55,33 @@ Module ListIconGadgetEx
     
   EndProcedure
   
-  Procedure SetEvenRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Procedure SetEvenRowColor(Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
     
-    Protected Style.s
+    GetGrid
     
-    Style = "<style type='text/css' id='EvenRowColorStyle'>" + 
-            ".dgrid-row-even.dgrid-selected { background: " + SelectedRowColor + "; color: " + SelectedTextColor + "; } " + 
-            ".dgrid-row-even { background: " + RowColor + "; color: " + TextColor + "; }" + 
-            "</style>"
+    ! $('#EvenRowColorStyle_' + grid.id).remove();
     
-    ! $('#EvenRowColorStyle').remove();
-    ! $(v_style).appendTo("head");
+    ! var style = "<style type='text/css' id='EvenRowColorStyle_" + grid.id + "'>" + 
+    !             " #" + grid.id + " .dgrid-row-even.dgrid-selected {background:" + v_selectedrowcolor + ";color:" + v_selectedtextcolor + ";}" + 
+    !             " #" + grid.id + " .dgrid-row-even {background:" + v_rowcolor + ";color:" + v_textcolor + ";}" + 
+    !             "</style>"
+    
+    ! $(style).appendTo("head");
     
   EndProcedure
   
-  Procedure SetOddRowColor(RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Procedure SetOddRowColor(Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
     
-    Protected Style.s
+    GetGrid
     
-    Style = "<style type='text/css' id='OddRowColorStyle'>" + 
-            ".dgrid-row-odd.dgrid-selected { background: " + SelectedRowColor + "; color: " + SelectedTextColor + "; } " + 
-            ".dgrid-row-odd { background: " + RowColor + "; color: " + TextColor + "; }" + 
-            "</style>"
+    ! $('#OddRowColorStyle_' + grid.id).remove();
     
-    ! $('#OddRowColorStyle').remove();
-    ! $(v_style).appendTo("head");
+    ! var style = "<style type='text/css' id='OddRowColorStyle_" + grid.id + "'>" + 
+    !             " #" + grid.id + " .dgrid-row-odd.dgrid-selected {background:" + v_selectedrowcolor + ";color:" + v_selectedtextcolor + ";}" + 
+    !             " #" + grid.id + " .dgrid-row-odd {background:" + v_rowcolor + ";color:" + v_textcolor + ";}" + 
+    !             "</style>"
+    
+    ! $(style).appendTo("head");
     
   EndProcedure
   
