@@ -2,14 +2,18 @@
   
   EnableExplicit
   
-  Declare SetRowHeight(Gadget, RowHeight)
-  Declare BindCellClick(Gadget, Callback)
+  Declare SetRowHeight(ListIconGadget, RowHeight)
+  Declare BindCellClick(ListIconGadget, Callback)
   
-  Declare SetEvenRowColor(Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
-  Declare SetOddRowColor (Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Declare SetEvenRowColor(ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Declare SetOddRowColor (ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
   
-  Declare SetColumnHeaderAlignment(Gadget, Column, Alignment.s)
-  Declare SetColumnAlignment(Gadget, Column, Alignment.s)
+  Declare SetColumnHeaderColor(ListIconGadget, Column, BackColor.s, FrontColor.s)
+  
+  Declare SetColumnHeaderAlignment(ListIconGadget, Column, Alignment.s)
+  Declare SetColumnAlignment(ListIconGadget, Column, Alignment.s)
+  
+  Declare RenderCell(ListIconGadget, Column, Callback)
   
 EndDeclareModule
 
@@ -17,18 +21,18 @@ Module ListIconGadgetEx
   
   EnableExplicit
   
-  Macro GetGadgetID(Gadget)
-    If IsGadget(Gadget) = 0 : ProcedureReturn : EndIf
-    If GadgetType(Gadget) <> #PB_GadgetType_ListIcon : ProcedureReturn : EndIf
-    Protected GadgetID = GadgetID(Gadget)
+  Macro GetGadgetID(ListIconGadget)
+    If IsGadget(ListIconGadget) = 0 : ProcedureReturn : EndIf
+    If GadgetType(ListIconGadget) <> #PB_GadgetType_ListIcon : ProcedureReturn : EndIf
+    Protected GadgetID = GadgetID(ListIconGadget)
   EndMacro
   
   Macro GetGrid
-    GetGadgetID(Gadget)
+    GetGadgetID(ListIconGadget)
     ! var grid = v_gadgetid.gadget;
   EndMacro
   
-  Procedure SetRowHeight(Gadget, RowHeight)
+  Procedure SetRowHeight(ListIconGadget, RowHeight)
     
     GetGrid
     
@@ -41,7 +45,7 @@ Module ListIconGadgetEx
     
   EndProcedure
   
-  Procedure BindCellClick(Gadget, Callback)
+  Procedure BindCellClick(ListIconGadget, Callback)
     
     GetGrid
     
@@ -55,7 +59,7 @@ Module ListIconGadgetEx
     
   EndProcedure
   
-  Procedure SetEvenRowColor(Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Procedure SetEvenRowColor(ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
     
     GetGrid
     
@@ -70,7 +74,7 @@ Module ListIconGadgetEx
     
   EndProcedure
   
-  Procedure SetOddRowColor(Gadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
+  Procedure SetOddRowColor(ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
     
     GetGrid
     
@@ -85,18 +89,37 @@ Module ListIconGadgetEx
     
   EndProcedure
   
-  Procedure SetColumnHeaderAlignment(Gadget, Column, Alignment.s)
+  Procedure SetColumnHeaderColor(ListIconGadget, Column, BackColor.s, FrontColor.s)
+    GetGrid
+    ! var id = "ligchc_" + grid.id + "_" + v_column;
+    ! $("#" + id).remove();
+    ! $("<style id='" + id + "'>" + "#" + grid.id + " .dgrid-column-" + v_column + "[role='columnheader'] { color: " + v_frontcolor + "; background-color: " + v_backcolor + "; }</style>").appendTo("head");
+  EndProcedure  
+  
+  Procedure SetColumnHeaderAlignment(ListIconGadget, Column, Alignment.s)
     GetGrid
     ! var id = "ligcha_" + grid.id + "_" + v_column;
     ! $("#" + id).remove();
     ! $("<style id='" + id + "'>" + "#" + grid.id + " .dgrid-column-" + v_column + "[role='columnheader'] { text-align: " + v_alignment + ";}</style>").appendTo("head");
   EndProcedure
   
-  Procedure SetColumnAlignment(Gadget, Column, Alignment.s)
+  Procedure SetColumnAlignment(ListIconGadget, Column, Alignment.s)
     GetGrid
     ! var id = "ligca_" + grid.id + "_" + v_column;
     ! $("#" + id).remove();
     ! $("<style id='" + id + "'>" + "#" + grid.id + " .dgrid-column-" + v_column + "[role='gridcell'] { text-align: " + v_alignment + ";}</style>").appendTo("head");
   EndProcedure
+  
+  Procedure RenderCell(ListIconGadget, Column, Callback)
+    
+    GetGrid
+    
+    ! grid.ListIconGadget = v_gadgetid;
+    
+    ! grid.columns[v_column].renderCell = v_callback;
+    ! grid.set("columns", dijit.byId(grid).columns);
+    ! grid.startup();
+    
+  EndProcedure   
   
 EndModule

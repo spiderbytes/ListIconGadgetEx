@@ -35,6 +35,8 @@ AddGadgetColumn(#ListIconGadget1, 1, "Column 1", 100)
 ListIconGadgetEx::SetOddRowColor (#ListIconGadget1, "lightgreen", "darkgreen", "black", "white")
 ListIconGadgetEx::SetEvenRowColor(#ListIconGadget1, "white", "lightblue", "black", "black")
 
+ListIconGadgetEx::SetColumnHeaderColor(#ListIconGadget1, 0, "red", "yellow") ; setting the color for first columnheader
+
 ; #ListIconGadget2
 
 ListIconGadget(#ListIconGadget2, 400, 0, 400, 400, "Column 0", 200, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)

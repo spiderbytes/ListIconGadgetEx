@@ -1,0 +1,61 @@
+﻿EnableExplicit
+
+XIncludeFile "ListIconGadgetEx.sbi"
+
+Enumeration
+  #Window
+  #ListIconGadget
+EndEnumeration
+
+Procedure ButtonEvent()
+  
+  Debug "ButtonEvent in Row: " + Str(GetGadgetData(EventGadget()))
+  
+EndProcedure
+
+Procedure.s RenderCell(a, b, c)
+  
+  Protected Text.s
+  
+  Protected colID
+  Protected rowID
+  
+  ! v_colid = parseInt(v_c.columnId);
+  ! v_rowid = parseInt(v_a.id);
+  
+  ! v_text = this.grid.ListIconGadget.GetItemText(v_rowid, v_colid);
+  
+  Protected NewGadget
+  
+  Select Text
+      
+    Case "ButtonGadget"
+      NewGadget = ButtonGadget(#PB_Any, 0, 0, 100, 30, "ButtonGadget")
+      SetGadgetData(NewGadget, rowID)
+      BindGadgetEvent(NewGadget, @ButtonEvent())
+      
+  EndSelect
+  
+  Protected GID = GadgetID(NewGadget)
+  
+  ! $(v_gid.div).css("position", "")
+  ! $(v_gid.div).find('*').css("position", "")
+  
+  ! v_gid.gadget.placeAt(v_c)
+  
+EndProcedure
+
+OpenWindow(#Window, #PB_Ignore, #PB_Ignore, 300, 300, "RenderCell Demo 3", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)
+
+ListIconGadget(#ListIconGadget, 0, 0, WindowWidth(#Window), WindowHeight(#Window), "Gadgettype", 100, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
+
+AddGadgetColumn(#ListIconGadget, 1, "Gadget", 100)
+
+Define Counter
+
+For Counter = 0 To 9
+  AddGadgetItem(#ListIconGadget, -1, "ButtonGadget" + #LF$ + "ButtonGadget")
+Next
+
+
+ListIconGadgetEx::RenderCell(#ListIconGadget, 1, @RenderCell()) ; we want to render Column 1 

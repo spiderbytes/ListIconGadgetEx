@@ -1,0 +1,65 @@
+﻿EnableExplicit
+
+XIncludeFile "ListIconGadgetEx.sbi"
+
+Enumeration
+  #Window
+  #ListIconGadget
+EndEnumeration
+
+Procedure.s RenderCell(a, b, c)
+  
+  Protected Text.s
+  
+  Protected colID
+  Protected rowID
+  
+  ! v_colid = parseInt(v_c.columnId);
+  ! v_rowid = parseInt(v_a.id);
+  
+  ! v_text = this.grid.ListIconGadget.GetItemText(v_rowid, v_colid);
+  
+  ! $(v_c).css("text-align", "right"); // the age is right-aligned
+  
+  ; Now we want to set the text color depending on the age:
+  
+  Select Val(Text)
+      
+    Case  1 To 30
+      ! $(v_c).css("color", "green")
+      
+    Case 31 To 60
+      ! $(v_c).css("color", "black")
+      
+    Case 61 To 90
+      ! $(v_c).css("color", "blue")
+      
+    Default ; older than 90
+      ! $(v_c).css("color", "red")
+      
+  EndSelect
+  
+  ; Now we change the output text:
+  
+  ; Please keep in mind that this only affects the *output*
+  ; and GetGadget(Item)Text() still returns the age (as a number)
+  
+  Text + " years old"
+  
+  ! $(v_c).text(v_text);
+  
+EndProcedure
+
+OpenWindow(#Window, #PB_Ignore, #PB_Ignore, 200, 300, "RenderCell Demo 1", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)
+
+ListIconGadget(#ListIconGadget, 0, 0, WindowWidth(#Window), WindowHeight(#Window), "Description", 60, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
+
+AddGadgetColumn(#ListIconGadget, 1, "Age", 50)
+
+Define Counter
+
+For Counter = 1 To 9
+  AddGadgetItem(#ListIconGadget, -1, "Human " + Counter + Chr(10) + Random(100, 1))
+Next
+
+ListIconGadgetEx::RenderCell(#ListIconGadget, 1, @RenderCell()) ; we want to render the Age-Column
