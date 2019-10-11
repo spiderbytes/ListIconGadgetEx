@@ -112,11 +112,31 @@ Module ListIconGadgetEx
   
   Procedure RenderCell(ListIconGadget, Column, Callback)
     
+    Protected Lig
+    Protected Col
+    Protected Row
+    Protected Text.s
+    
     GetGrid
     
-    ! grid.ListIconGadget = v_gadgetid;
+    ! grid.ListIconGadget = v_listicongadget;
     
-    ! grid.columns[v_column].renderCell = v_callback;
+    ! grid.columns[v_column].renderCell = function(a, b, c, d) {
+    
+    !   v_col = parseInt(c.columnId);
+    !   v_row = parseInt(a.id);
+    
+    !   v_lig = grid.ListIconGadget;
+    
+    Text = GetGadgetItemText(LIG, Row, Col)
+    
+    !   var td = c;
+    
+    !   v_callback(v_row, v_col, v_text, td, v_listicongadget);
+    
+    ! };
+    
+    
     ! grid.set("columns", dijit.byId(grid).columns);
     ! grid.startup();
     

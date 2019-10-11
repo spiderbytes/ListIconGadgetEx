@@ -17,21 +17,11 @@ Procedure ButtonEvent()
   
 EndProcedure
 
-Procedure.s RenderCell(a, b, c)
-  
-  Protected Text.s
-  
-  Protected colID
-  Protected rowID
-  
-  ! v_colid = parseInt(v_c.columnId);
-  ! v_rowid = parseInt(v_a.id);
-  
-  ! v_text = this.grid.ListIconGadget.GetItemText(v_rowid, v_colid);
+Procedure.s RenderCell(Row, Col, Text.s, TD, ListIconGadget)
   
   If Text <> ""
     
-    Select colID
+    Select Col
       Case 0
         Text = "<i class='fa fa-" + Text + " fa-3x far'></i>"
       Case 1
@@ -42,8 +32,8 @@ Procedure.s RenderCell(a, b, c)
     
   EndIf
   
-  ! $(v_c).append($(v_text));
-  ! $(v_c).css("text-align", "center");
+  ! $(v_td).append($(v_text));
+  ! $(v_td).css("text-align", "center");
   
 EndProcedure
 

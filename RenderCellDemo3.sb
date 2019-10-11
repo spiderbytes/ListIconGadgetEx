@@ -13,17 +13,7 @@ Procedure ButtonEvent()
   
 EndProcedure
 
-Procedure.s RenderCell(a, b, c)
-  
-  Protected Text.s
-  
-  Protected colID
-  Protected rowID
-  
-  ! v_colid = parseInt(v_c.columnId);
-  ! v_rowid = parseInt(v_a.id);
-  
-  ! v_text = this.grid.ListIconGadget.GetItemText(v_rowid, v_colid);
+Procedure.s RenderCell(Row, Col, Text.s, TD, ListIconGadget)
   
   Protected NewGadget
   
@@ -31,7 +21,7 @@ Procedure.s RenderCell(a, b, c)
       
     Case "ButtonGadget"
       NewGadget = ButtonGadget(#PB_Any, 0, 0, 100, 30, "ButtonGadget")
-      SetGadgetData(NewGadget, rowID)
+      SetGadgetData(NewGadget, Row)
       BindGadgetEvent(NewGadget, @ButtonEvent())
       
   EndSelect
@@ -41,7 +31,7 @@ Procedure.s RenderCell(a, b, c)
   ! $(v_gid.div).css("position", "")
   ! $(v_gid.div).find('*').css("position", "")
   
-  ! v_gid.gadget.placeAt(v_c)
+  ! v_gid.gadget.placeAt(v_td)
   
 EndProcedure
 

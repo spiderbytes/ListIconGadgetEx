@@ -7,35 +7,25 @@ Enumeration
   #ListIconGadget
 EndEnumeration
 
-Procedure.s RenderCell(a, b, c)
+Procedure.s RenderCell(Row, Col, Text.s, TD, ListIconGadget)
   
-  Protected Text.s
-  
-  Protected colID
-  Protected rowID
-  
-  ! v_colid = parseInt(v_c.columnId);
-  ! v_rowid = parseInt(v_a.id);
-  
-  ! v_text = this.grid.ListIconGadget.GetItemText(v_rowid, v_colid);
-  
-  ! $(v_c).css("text-align", "right"); // the age is right-aligned
+  ! $(v_td).css("text-align", "right"); // the age is right-aligned
   
   ; Now we want to set the text color depending on the age:
   
   Select Val(Text)
       
     Case  1 To 30
-      ! $(v_c).css("color", "green")
+      ! $(v_td).css("color", "green")
       
     Case 31 To 60
-      ! $(v_c).css("color", "black")
+      ! $(v_td).css("color", "black")
       
     Case 61 To 90
-      ! $(v_c).css("color", "blue")
+      ! $(v_td).css("color", "blue")
       
     Default ; older than 90
-      ! $(v_c).css("color", "red")
+      ! $(v_td).css("color", "red")
       
   EndSelect
   
@@ -46,7 +36,7 @@ Procedure.s RenderCell(a, b, c)
   
   Text + " years old"
   
-  ! $(v_c).text(v_text);
+  ! $(v_td).text(v_text);
   
 EndProcedure
 
