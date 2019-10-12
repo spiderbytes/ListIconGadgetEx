@@ -9,47 +9,51 @@ EndEnumeration
 
 Procedure.s RenderCell(Row, Col, Text.s, TD, ListIconGadget)
   
-  ! $(v_td).css("text-align", "right"); // the age is right-aligned
+  ; We want to set the text color depending on the amount:
   
-  ; Now we want to set the text color depending on the age:
+  Protected TextColor.s
   
-  Select Val(Text)
-      
-    Case  1 To 30
-      ! $(v_td).css("color", "green")
-      
-    Case 31 To 60
-      ! $(v_td).css("color", "black")
-      
-    Case 61 To 90
-      ! $(v_td).css("color", "blue")
-      
-    Default ; older than 90
-      ! $(v_td).css("color", "red")
-      
-  EndSelect
+  If Val(Text) > 0
+    
+    ; incomming -> that's good! :-)
+    TextColor = "green"
+    
+  ElseIf Val(Text) < 0
+    
+    ; outgoing  -> that's bad :-(
+    TextColor = "red"
+    
+  ElseIf Val(Text) = 0 
+    
+    ; 0 -> neutral
+    TextColor = "black"
+    
+  EndIf
+  
+  ! $(v_td).css("color", v_textcolor)
+  
+  ! $(v_td).css("text-align", "right"); // the column is right-aligned
   
   ; Now we change the output text:
   
   ; Please keep in mind that this only affects the *output*
-  ; and GetGadget(Item)Text() still returns the age (as a number)
+  ; and GetGadget(Item)Text() still returns the Amount (without the '€'-sign)
   
-  Text + " years old"
+  Text + " €"
   
   ! $(v_td).text(v_text);
   
 EndProcedure
 
-OpenWindow(#Window, #PB_Ignore, #PB_Ignore, 200, 300, "RenderCell Demo 1", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)
+OpenWindow(#Window, #PB_Ignore, #PB_Ignore, 250, 200, "RenderCell Demo 1", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)
 
-ListIconGadget(#ListIconGadget, 0, 0, WindowWidth(#Window), WindowHeight(#Window), "Description", 60, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
+ListIconGadget(#ListIconGadget, 0, 0, WindowWidth(#Window), WindowHeight(#Window), "Description", 100, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
 
-AddGadgetColumn(#ListIconGadget, 1, "Age", 50)
+AddGadgetColumn(#ListIconGadget, 1, "Amount", 100)
 
-Define Counter
+AddGadgetItem(#ListIconGadget, -1, "Salary"        + #LF$ + "2000")
+AddGadgetItem(#ListIconGadget, -1, "Food & Drinks" + #LF$ + "-500")
+AddGadgetItem(#ListIconGadget, -1, "Car Petrol"    + #LF$ + "-160")
+AddGadgetItem(#ListIconGadget, -1, "Internet"      + #LF$ + "-50")
 
-For Counter = 1 To 9
-  AddGadgetItem(#ListIconGadget, -1, "Human " + Counter + Chr(10) + Random(100, 1))
-Next
-
-ListIconGadgetEx::RenderCell(#ListIconGadget, 1, @RenderCell()) ; we want to render the Age-Column
+ListIconGadgetEx::RenderCell(#ListIconGadget, 1, @RenderCell()) ; we want to render the Amount-Column
