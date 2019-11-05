@@ -50,11 +50,11 @@ Module ListIconGadgetEx
     GetGrid
     
     ! grid.on('.dgrid-header .dgrid-cell:click', function (e) {
-    ! 	v_callback(v_gadget, grid.cell(e).column.index, -1);
+    ! 	v_callback(v_listicongadget, grid.cell(e).column.index, -1);
     ! });
     
     ! grid.on('.dgrid-row .dgrid-cell:click', function (e) {
-    ! 	v_callback(v_gadget, grid.cell(e).column.index, grid.cell(e).row.id);
+    ! 	v_callback(v_listicongadget, grid.cell(e).column.index, grid.cell(e).row.id);
     ! });
     
   EndProcedure
