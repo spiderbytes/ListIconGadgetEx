@@ -18,6 +18,9 @@
   
   Declare RenderCell(ListIconGadget, Column, Callback)
   
+  Declare ColumnIsSortable(ListIconGadget, Column, IsSortable)
+  Declare SetSortCallback(ListIconGadget, Callback)
+  
 EndDeclareModule
 
 Module ListIconGadgetEx
@@ -84,7 +87,6 @@ Module ListIconGadgetEx
     ! }
     
   EndProcedure
-    
   
   Procedure SetEvenRowColor(ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
     
@@ -168,5 +170,25 @@ Module ListIconGadgetEx
     ! grid.startup();
     
   EndProcedure   
+  
+  Procedure ColumnIsSortable(ListIconGadget, Column, IsSortable)
+    
+    GetGrid
+    
+    ! var column = grid.columns[v_column];
+    ! column.sortable = v_issortable;
+    ! grid.set("columns", grid.columns);
+    
+  EndProcedure
+  
+  Procedure SetSortCallback(ListIconGadget, Callback)
+    
+    GetGrid
+    
+    ! grid.on('dgrid-sort', function (event) {
+    !   v_callback(v_listicongadget, event.sort[0].property, event.sort[0].descending);
+    ! });
+    
+  EndProcedure  
   
 EndModule

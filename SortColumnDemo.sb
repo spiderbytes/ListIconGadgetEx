@@ -1,0 +1,83 @@
+﻿EnableExplicit
+
+IncludeFile "ListIconGadgetEx.sbi"
+
+Enumeration
+  #Window
+  #ListIconGadget1
+EndEnumeration
+
+Procedure SortCallback(ListIconGadget, Column, Descending)
+  
+  ;   Debug Column
+  ;   Debug Descending
+  ;   Debug "---"
+  
+  
+  Protected Counter
+  Protected Line.s
+  Protected Numeric
+  
+  ! var a = [];
+  
+  For Counter = 0 To CountGadgetItems(ListIconGadget) - 1
+    
+    ; CallDebugger
+    
+    Line = GetGadgetItemText(ListIconGadget, Counter)
+    
+    ! a.push(v_line.split(String.fromCharCode(10)));
+    
+  Next
+  
+  ! var column = []
+  ! for (var c = 0; c <= a.length - 1; c++) {
+  !   column.push(a[c][v_column]);
+  ! }
+  ! v_numeric = !column.some(isNaN);
+  
+  If Numeric
+    If Descending
+      ! a.sort(function(a, b) { return a[v_column] - b[v_column] });
+    Else
+      ! a.sort(function(a, b) { return b[v_column] - a[v_column] });
+    EndIf
+  Else
+    If Descending
+      ! a.sort(function(a, b) { if (a[v_column] == b[v_column]) { return 0; } else { return a[v_column] > b[v_column] ? -1 : 1; } });
+    Else
+      ! a.sort(function(a, b) { if (a[v_column] == b[v_column]) { return 0; } else { return a[v_column] < b[v_column] ? -1 : 1; } });
+    EndIf
+  EndIf
+  
+  ! for (var c = 0; c <= a.length - 1; c++) {
+  !   spider_SetGadgetItemText(v_listicongadget, c, a[c].join(String.fromCharCode(10)));
+  ! }
+  
+  
+EndProcedure
+
+; -----------------------------------
+
+OpenWindow(#Window, #PB_Ignore, #PB_Ignore, 400, 400, "ListIcon Example", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)
+
+; #ListIconGadget1
+
+ListIconGadget(#ListIconGadget1, 0, 0, 400, 400, "String", 200, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
+AddGadgetColumn(#ListIconGadget1, 1, "Numeric", 100)
+
+AddGadgetItem(#ListIconGadget1, -1, "Peter Parker" + #LF$ + "1")
+AddGadgetItem(#ListIconGadget1, -1, "Bruce Wayne" + #LF$ + "2")
+AddGadgetItem(#ListIconGadget1, -1, "Clark Kent"    + #LF$ + "3")
+AddGadgetItem(#ListIconGadget1, -1, "Tony Stark" + #LF$ + "10")
+AddGadgetItem(#ListIconGadget1, -1, "Bruce Banner" + #LF$ + "11")
+AddGadgetItem(#ListIconGadget1, -1, "Scott Lang" + #LF$ + "20")
+AddGadgetItem(#ListIconGadget1, -1, "Clint Barton" + #LF$ + "21")
+
+
+ListIconGadgetEx::SetColumnAlignment(#ListIconGadget1, 1, "right")
+
+ListIconGadgetEx::SetSortCallback(#ListIconGadget1, @SortCallback())
+
+ListIconGadgetEx::ColumnIsSortable(#ListIconGadget1, 0, #True)
+ListIconGadgetEx::ColumnIsSortable(#ListIconGadget1, 1, #True)
