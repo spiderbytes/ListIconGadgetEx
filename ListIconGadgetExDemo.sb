@@ -50,6 +50,7 @@ ListIconGadgetEx::SetEvenRowColor(#ListIconGadget2, "yellow", "lightblue", "oran
 ListIconGadget(#ListIconGadget3, 0, 400, 400, 400, "Column 0", 200, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection)
 AddGadgetColumn(#ListIconGadget3, 1, "Column 1", 100)
 
+ListIconGadgetEx::SetHeaderHeight(#ListIconGadget3, 36)
 ListIconGadgetEx::SetRowHeight(#ListIconGadget3, 36)
 ListIconGadgetEx::BindCellClick(#ListIconGadget3, @CellClick())
 
@@ -63,6 +64,10 @@ ListIconGadgetEx::SetColumnAlignment(#ListIconGadget4, 0, "center")
 
 ListIconGadgetEx::SetColumnHeaderAlignment(#ListIconGadget4, 1, "left")
 ListIconGadgetEx::SetColumnAlignment(#ListIconGadget4, 1, "center")
+
+ListIconGadgetEx::BindCellClick(#ListIconGadget4, @CellClick())
+ListIconGadgetEx::UnbindCellClick(#ListIconGadget4)
+
 
 Define Counter
 

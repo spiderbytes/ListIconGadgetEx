@@ -3,7 +3,10 @@
   EnableExplicit
   
   Declare SetRowHeight(ListIconGadget, RowHeight)
+  Declare SetHeaderHeight(ListIconGadget, HeaderHeight)
+  
   Declare BindCellClick(ListIconGadget, Callback)
+  Declare UnbindCellClick(ListIconGadget)
   
   Declare SetEvenRowColor(ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
   Declare SetOddRowColor (ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
@@ -32,6 +35,15 @@ Module ListIconGadgetEx
     ! var grid = v_gadgetid.gadget;
   EndMacro
   
+  Procedure SetHeaderHeight(ListIconGadget, HeaderHeight)
+    
+    GetGrid
+    
+    ! $("#" + grid.id).find("[role='columnheader']").css('height', v_headerheight + 'px');
+    ! $("#" + grid.id).find("[role='columnheader']").css('line-height', v_headerheight + 'px');    
+    
+  EndProcedure   
+  
   Procedure SetRowHeight(ListIconGadget, RowHeight)
     
     GetGrid
@@ -49,15 +61,30 @@ Module ListIconGadgetEx
     
     GetGrid
     
-    ! grid.on('.dgrid-header .dgrid-cell:click', function (e) {
-    ! 	v_callback(v_listicongadget, grid.cell(e).column.index, -1);
-    ! });
+    ! if (typeof grid.cellClickHandler === 'undefined') grid.cellClickHandler = [];
     
-    ! grid.on('.dgrid-row .dgrid-cell:click', function (e) {
+    ! grid.cellClickHandler.push(grid.on('.dgrid-header .dgrid-cell:click', function (e) {
+    ! 	v_callback(v_listicongadget, grid.cell(e).column.index, -1);
+    ! }));
+    
+    ! grid.cellClickHandler.push(grid.on('.dgrid-row .dgrid-cell:click', function (e) {
     ! 	v_callback(v_listicongadget, grid.cell(e).column.index, grid.cell(e).row.id);
-    ! });
+    ! }));
     
   EndProcedure
+  
+  Procedure UnbindCellClick(ListIconGadget)
+    
+    GetGrid
+    
+    ! if (grid.cellClickHandler) {
+    !   for (var counter = 0; counter < grid.cellClickHandler.length; counter ++) {
+    !     grid.cellClickHandler[counter].remove();
+    !   }
+    ! }
+    
+  EndProcedure
+    
   
   Procedure SetEvenRowColor(ListIconGadget, RowColor.s, SelectedRowColor.s, TextColor.s, SelectedTextColor.s)
     
