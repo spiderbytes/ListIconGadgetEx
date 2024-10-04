@@ -1,0 +1,24 @@
+﻿EnableExplicit
+
+XIncludeFile "ListIconGadgetEx.sbi"
+
+Enumeration
+  #Window
+  #ListIconGadget
+EndEnumeration
+
+Procedure.s RenderCell(Row, Col, Text.s, TD, ListIconGadget)
+  
+  ! $(v_td).html(v_text);
+  
+EndProcedure
+
+OpenWindow(#Window, #PB_Ignore, #PB_Ignore, 300, 200, "RenderCell Demo 4", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)
+
+ListIconGadget(#ListIconGadget, 10, 10, WindowWidth(#Window) - 20, WindowHeight(#Window) - 20, "Col0", 100, #PB_ListIcon_FullRowSelect | #PB_ListIcon_AlwaysShowSelection | #PB_ListIcon_GridLines)
+
+AddGadgetColumn(#ListIconGadget, 1, "Col1", 100)
+
+AddGadgetItem(#ListIconGadget, -1, "SpiderBasic-Forum" + #LF$ + "<a href='https://forums.spiderbasic.com/' target='_blank'>Click here</a>")
+
+ListIconGadgetEx::RenderCell(#ListIconGadget, 1, @RenderCell()) ; we want to render Column 1 
